@@ -15,7 +15,8 @@ module.exports = (env, argv) => {
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].js'
+      // filename: '[name].js',
+      filename: '[name].[chunkhash:8].js'
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js'] // 添加 .tsx 以解析 React 文件
@@ -39,7 +40,8 @@ module.exports = (env, argv) => {
         filename: '[name].css'
       }),
       new HtmlWebpackPlugin({
-        filename: 'popup.html',
+        // filename: 'popup.html',
+        filename: 'index.html',
         template: 'src/popup/popup.html',
         chunks: ['popup']
       }),
@@ -50,6 +52,11 @@ module.exports = (env, argv) => {
         ]
       })
     ],
+    devServer: {
+      port: 8080,
+      hot: true,
+      open: true
+    },
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? false : 'inline-source-map' // 在生产中禁用源映射
   }
